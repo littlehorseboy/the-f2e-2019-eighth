@@ -15,9 +15,8 @@ const routes = [
 const useStyles = makeStyles(() => createStyles({
   root: {
     fontFamily: '"Noto Sans TC", system-ui, -apple-system, "Roboto", "Helvetica", "Arial", sans-serif',
-    backgroundColor: '#1E1E1E',
     minHeight: '100vh',
-    color: '#D4D4D4',
+    color: '#373737',
   },
 }));
 

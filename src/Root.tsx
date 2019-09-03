@@ -22,7 +22,7 @@ const theme = createMuiTheme({
   overrides: {
     MuiInputBase: {
       root: {
-        color: '#8D908D',
+        // color: '#8D908D',
       },
     },
   },
