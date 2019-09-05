@@ -8,14 +8,21 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
+import Collapse from '@material-ui/core/Collapse';
 import CloudIcon from '@material-ui/icons/Cloud';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import SettingsApplicationsOutlinedIcon from '@material-ui/icons/SettingsApplicationsOutlined';
+import StarIcon from '@material-ui/icons/Star';
+import AddIcon from '@material-ui/icons/Add';
+import FolderIcon from '@material-ui/icons/Folder';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DynamicFeedIcon from '../../components/icons/DynamicFeed/DynamicFeed';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
@@ -75,8 +82,21 @@ const useStyles = makeStyles((theme) => createStyles({
   sidebar: {
     width: 250,
     height: 'calc(100vh - 75px)',
+    color: '#FFFFFF',
     backgroundColor: '#373737',
     borderRight: '1px solid #000000',
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+    '& .MuiListItemIcon-root': {
+      color: 'inherit',
+    },
+  },
+  folderNested: {
+    paddingLeft: theme.spacing(8),
+    '& .MuiListItemIcon-root': {
+      color: 'inherit',
+    },
   },
 }));
 
@@ -110,6 +130,10 @@ export default function Login(): JSX.Element {
 
     setTimeChecked(newChecked);
   };
+
+  const [myCloudDriveOpen, setMyCloudDriveOpen] = React.useState(true);
+
+  const [folderOpen, setFolderOpen] = React.useState(true);
 
   return (
     <>
@@ -194,7 +218,84 @@ export default function Login(): JSX.Element {
         </div>
       </header>
       <div>
-        <div className={classes.sidebar}></div>
+        <div className={classes.sidebar}>
+          <div>
+            <List
+              component="nav"
+            >
+              <ListItem button onClick={(): void => setMyCloudDriveOpen(!myCloudDriveOpen)}>
+                <ListItemText primary="我的雲端硬碟" />
+                {myCloudDriveOpen ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+              </ListItem>
+              <Collapse in={myCloudDriveOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <DynamicFeedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="全部檔案" />
+                    <ListItemSecondaryAction>
+                      23
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <StarIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="已加星號" />
+                    <ListItemSecondaryAction>
+                      3
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <ListItem
+                    button
+                    className={classes.nested}
+                    onClick={(): void => setFolderOpen(!folderOpen)}
+                  >
+                    <ListItemIcon>
+                      <FolderIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="資料夾(3)" />
+                    <ListItemSecondaryAction>
+                      <AddIcon />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <Collapse in={folderOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItem button className={classes.folderNested}>
+                        <ListItemText primary="Graphic Design" />
+                        <ListItemSecondaryAction>
+                          10
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem button className={classes.folderNested}>
+                        <ListItemText primary="UI Design" />
+                        <ListItemSecondaryAction>
+                          3
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem button className={classes.folderNested}>
+                        <ListItemText primary="Illustration" />
+                        <ListItemSecondaryAction>
+                          4
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <DeleteForeverIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="垃圾桶" />
+                    <ListItemSecondaryAction>
+                      3
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </List>
+              </Collapse>
+            </List>
+          </div>
+        </div>
         <div></div>
       </div>
     </>
