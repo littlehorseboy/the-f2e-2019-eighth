@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -13,6 +13,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import ToggleButton from '@material-ui/lab/ToggleButton';
 import CloudIcon from '@material-ui/icons/Cloud';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -22,7 +26,21 @@ import StarIcon from '@material-ui/icons/Star';
 import AddIcon from '@material-ui/icons/Add';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import ListIcon from '@material-ui/icons/List';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import DynamicFeedIcon from '../../components/icons/DynamicFeed/DynamicFeed';
+
+const BorderLinearProgress = withStyles({
+  root: {
+    height: 10,
+    backgroundColor: '##FFFFFF',
+  },
+  bar: {
+    // borderRadius: 20,
+    backgroundColor: '#8D908D',
+  },
+})(LinearProgress);
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
@@ -79,6 +97,9 @@ const useStyles = makeStyles((theme) => createStyles({
     display: 'flex',
     alignItems: 'center',
   },
+  mainBodyContainer: {
+    display: 'flex',
+  },
   sidebar: {
     width: 250,
     height: 'calc(100vh - 75px)',
@@ -98,12 +119,18 @@ const useStyles = makeStyles((theme) => createStyles({
       color: 'inherit',
     },
   },
+  sidebarBottom: {
+    padding: theme.spacing(2),
+  },
+  main: {
+    padding: theme.spacing(2),
+  },
 }));
 
 export default function Login(): JSX.Element {
   const classes = useStyles();
 
-  const [anchorTimeEl, setAnchorTimeEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorTimeEl, setAnchorTimeEl] = useState<HTMLButtonElement | null>(null);
 
   function handleClickOpenTimePopover(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -115,7 +142,7 @@ export default function Login(): JSX.Element {
     setAnchorTimeEl(null);
   }
 
-  const [timeChecked, setTimeChecked] = React.useState<{ label: string; value: string }[]>([]);
+  const [timeChecked, setTimeChecked] = useState<{ label: string; value: string }[]>([]);
 
   const handleTimeCheckedToggle = (time: { label: string; value: string }): ()
   => void => (): void => {
@@ -131,9 +158,19 @@ export default function Login(): JSX.Element {
     setTimeChecked(newChecked);
   };
 
-  const [myCloudDriveOpen, setMyCloudDriveOpen] = React.useState(true);
+  const [myCloudDriveOpen, setMyCloudDriveOpen] = useState(true);
 
-  const [folderOpen, setFolderOpen] = React.useState(true);
+  const [folderOpen, setFolderOpen] = useState(true);
+
+  const [shareCloudDriveOpen, setShareCloudDriveOpen] = useState(false);
+
+  const [viewMode, setViewMode] = useState('list');
+
+  const handleChangeViewMode = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>, mode: string,
+  ): void => {
+    setViewMode(mode);
+  };
 
   return (
     <>
@@ -217,7 +254,8 @@ export default function Login(): JSX.Element {
           </IconButton>
         </div>
       </header>
-      <div>
+
+      <div className={classes.mainBodyContainer}>
         <div className={classes.sidebar}>
           <div>
             <List
@@ -294,9 +332,113 @@ export default function Login(): JSX.Element {
                 </List>
               </Collapse>
             </List>
+
+            <List
+              component="nav"
+            >
+              <ListItem button onClick={(): void => setShareCloudDriveOpen(!shareCloudDriveOpen)}>
+                <ListItemText primary="共用雲端硬碟" />
+                {shareCloudDriveOpen ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+              </ListItem>
+              <Collapse in={shareCloudDriveOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <DynamicFeedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="全部檔案" />
+                    <ListItemSecondaryAction>
+                      23
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <StarIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="已加星號" />
+                    <ListItemSecondaryAction>
+                      3
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <ListItem
+                    button
+                    className={classes.nested}
+                    onClick={(): void => setFolderOpen(!folderOpen)}
+                  >
+                    <ListItemIcon>
+                      <FolderIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="資料夾(3)" />
+                    <ListItemSecondaryAction>
+                      <AddIcon />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <Collapse in={folderOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItem button className={classes.folderNested}>
+                        <ListItemText primary="Graphic Design" />
+                        <ListItemSecondaryAction>
+                          10
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem button className={classes.folderNested}>
+                        <ListItemText primary="UI Design" />
+                        <ListItemSecondaryAction>
+                          3
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem button className={classes.folderNested}>
+                        <ListItemText primary="Illustration" />
+                        <ListItemSecondaryAction>
+                          4
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <DeleteForeverIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="垃圾桶" />
+                    <ListItemSecondaryAction>
+                      3
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </List>
+              </Collapse>
+            </List>
+          </div>
+
+          <Divider />
+
+          <div className={classes.sidebarBottom}>
+            <Typography variant="h6">儲存空間</Typography>
+            <Typography>目前使用量：20.6G</Typography>
+            <Typography>剩餘使用量：99.4G (共120G)</Typography>
+            <BorderLinearProgress
+              variant="determinate"
+              value={(120 / 20.6) * 100}
+            />
           </div>
         </div>
-        <div></div>
+        <div className={classes.main}>
+          <div>
+            <KeyboardBackspaceIcon />
+            <Typography variant="h6">我的雲端硬碟</Typography>
+            <ToggleButtonGroup value={viewMode} exclusive onChange={handleChangeViewMode}>
+              <ToggleButton value="list">
+                <ListIcon />
+              </ToggleButton>
+              <ToggleButton value="grid">
+                <DashboardIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
+            <Button variant="contained" color="secondary">
+              <AddIcon />
+              新增
+            </Button>
+          </div>
+        </div>
       </div>
     </>
   );
