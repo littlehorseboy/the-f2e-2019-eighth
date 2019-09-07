@@ -6,7 +6,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import CloudIcon from '@material-ui/icons/Cloud';
 import SearchIcon from '@material-ui/icons/Search';
-import SettingsApplicationsOutlinedIcon from '@material-ui/icons/SettingsApplicationsOutlined';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import ButtonTimePopver from './ButtonTimePopver/ButtonTimePopver';
 import ButtonSizePopver from './ButtonSizePopver/ButtonSizePopver';
 import ButtonDimensionPopver from './ButtonDimensionPopver/ButtonDimensionPopver';
@@ -67,6 +67,12 @@ const useStyles = makeStyles((theme) => createStyles({
   headerRight: {
     display: 'flex',
     alignItems: 'center',
+    color: '#FFFFFF',
+  },
+  iconButton: {
+    '& .MuiSvgIcon-root': {
+      fontSize: '2rem',
+    },
   },
 }));
 
@@ -102,8 +108,8 @@ export default function Header(): JSX.Element {
       </div>
       <div className={classes.headerRight}>
         Horse
-        <IconButton>
-          <SettingsApplicationsOutlinedIcon />
+        <IconButton color="inherit" className={classes.iconButton}>
+          <SettingsApplicationsIcon />
         </IconButton>
       </div>
     </header>

@@ -5,16 +5,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const StyledTableCell = withStyles((theme) => createStyles({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: 'transparent',
+    color: theme.palette.common.black,
   },
   body: {
     fontSize: 14,
@@ -22,10 +20,13 @@ const StyledTableCell = withStyles((theme) => createStyles({
 }))(TableCell);
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const StyledTableRow = withStyles((theme) => createStyles({
+const StyledTableRow = withStyles(() => createStyles({
   root: {
+    '&:nth-of-type(even)': {
+      backgroundColor: '#E6E6E6',
+    },
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: '#E6E6E6',
     },
   },
 }))(TableRow);
@@ -72,13 +73,10 @@ const rows: RowI[] = [
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
-  },
   table: {
+    marginTop: theme.spacing(3),
     minWidth: 700,
+    overflow: 'auto',
   },
 }));
 
@@ -86,33 +84,31 @@ export default function CustomizedTables(): JSX.Element {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left" />
-            <StyledTableCell align="center">名稱</StyledTableCell>
-            <StyledTableCell align="center">類型</StyledTableCell>
-            <StyledTableCell align="center">大小</StyledTableCell>
-            <StyledTableCell align="center">尺寸</StyledTableCell>
-            <StyledTableCell align="center">最後修改時間</StyledTableCell>
-            <StyledTableCell align="center">擁有者</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row): JSX.Element => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell align="left">{row.star ? <StarIcon /> : <StarBorderIcon />}</StyledTableCell>
-              <StyledTableCell align="center">{row.name}</StyledTableCell>
-              <StyledTableCell align="center">{row.type}</StyledTableCell>
-              <StyledTableCell align="center">{row.size}</StyledTableCell>
-              <StyledTableCell align="center">{row.dimension}</StyledTableCell>
-              <StyledTableCell align="center">{row.updateTime}</StyledTableCell>
-              <StyledTableCell align="center">{row.owner}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
+    <Table className={classes.table}>
+      <TableHead>
+        <TableRow>
+          <StyledTableCell align="left" />
+          <StyledTableCell align="center">名稱</StyledTableCell>
+          <StyledTableCell align="center">類型</StyledTableCell>
+          <StyledTableCell align="center">大小</StyledTableCell>
+          <StyledTableCell align="center">尺寸</StyledTableCell>
+          <StyledTableCell align="center">最後修改時間</StyledTableCell>
+          <StyledTableCell align="center">擁有者</StyledTableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows.map((row): JSX.Element => (
+          <StyledTableRow key={row.name} hover>
+            <StyledTableCell align="left">{row.star ? <StarIcon /> : <StarBorderIcon />}</StyledTableCell>
+            <StyledTableCell align="center">{row.name}</StyledTableCell>
+            <StyledTableCell align="center">{row.type}</StyledTableCell>
+            <StyledTableCell align="center">{row.size}</StyledTableCell>
+            <StyledTableCell align="center">{row.dimension}</StyledTableCell>
+            <StyledTableCell align="center">{row.updateTime}</StyledTableCell>
+            <StyledTableCell align="center">{row.owner}</StyledTableCell>
+          </StyledTableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

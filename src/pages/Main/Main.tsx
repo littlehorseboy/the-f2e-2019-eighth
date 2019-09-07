@@ -10,6 +10,7 @@ import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { RouteComponentPropsI } from '../../router/Router';
 import RouterBreadcrumbs from '../../router/RouterBreadcrumbs/RouterBreadcrumbs';
+import ButtonNewPopover from '../../components/Toolbar/ButtonNewPopver/ButtonNewPopver';
 import Table from '../../components/Table/Table';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -43,15 +44,10 @@ const useStyles = makeStyles((theme) => createStyles({
       padding: theme.spacing(0, 0.25),
     },
   },
-  button: {
-    color: '#FFFFFF',
-  },
 }));
 
 export default function Main(props: RouteComponentPropsI): JSX.Element {
   const classes = useStyles();
-
-  const { routeComponentProps } = props;
 
   const [viewMode, setViewMode] = useState('list');
 
@@ -83,10 +79,8 @@ export default function Main(props: RouteComponentPropsI): JSX.Element {
               <DashboardIcon />
             </ToggleButton>
           </ToggleButtonGroup>
-          <Button variant="contained" color="secondary" className={classes.button}>
-            <AddIcon />
-            新增
-          </Button>
+
+          <ButtonNewPopover />
         </div>
       </div>
       <RouterBreadcrumbs />
