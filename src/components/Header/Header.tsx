@@ -10,6 +10,7 @@ import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import ButtonTimePopver from './ButtonTimePopver/ButtonTimePopver';
 import ButtonSizePopver from './ButtonSizePopver/ButtonSizePopver';
 import ButtonDimensionPopver from './ButtonDimensionPopver/ButtonDimensionPopver';
+import ButtonUserPopver from './ButtonUserPopver/ButtonUserPopver';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
@@ -107,7 +108,8 @@ export default function Header(): JSX.Element {
         </div>
       </div>
       <div className={classes.headerRight}>
-        Horse
+        <ButtonUserPopver />
+
         <IconButton color="inherit" className={classes.iconButton}>
           <SettingsApplicationsIcon />
         </IconButton>

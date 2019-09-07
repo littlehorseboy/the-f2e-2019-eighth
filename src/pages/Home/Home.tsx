@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => createStyles({
   },
   sidebar: {
     width: 250,
-    height: 'calc(100vh - 75px)',
+    minHeight: 'calc(100vh - 75px)',
     color: '#FFFFFF',
     backgroundColor: '#373737',
     borderRight: '1px solid #000000',
@@ -125,7 +125,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
                     </ListItemIcon>
                     <ListItemText primary="全部檔案" />
                     <ListItemSecondaryAction>
-                      23
+                      11
                     </ListItemSecondaryAction>
                   </ListItem>
                   <ListItem
@@ -165,7 +165,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
                       >
                         <ListItemText primary="Graphic Design" />
                         <ListItemSecondaryAction>
-                          10
+                          6
                         </ListItemSecondaryAction>
                       </ListItem>
                       <ListItem
@@ -187,7 +187,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
                       >
                         <ListItemText primary="Illustration" />
                         <ListItemSecondaryAction>
-                          4
+                          1
                         </ListItemSecondaryAction>
                       </ListItem>
                     </List>
@@ -203,7 +203,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
                     </ListItemIcon>
                     <ListItemText primary="垃圾桶" />
                     <ListItemSecondaryAction>
-                      3
+                      0
                     </ListItemSecondaryAction>
                   </ListItem>
                 </List>
@@ -225,7 +225,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
                     button
                     className={classes.nested}
                     component={Link}
-                    to="/all"
+                    to="/shareAll"
                   >
                     <ListItemIcon>
                       <DynamicFeedIcon />
@@ -239,7 +239,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
                     button
                     className={classes.nested}
                     component={Link}
-                    to="/star"
+                    to="/shareStar"
                   >
                     <ListItemIcon>
                       <StarIcon />

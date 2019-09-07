@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ToggleButton from '@material-ui/lab/ToggleButton';
-import AddIcon from '@material-ui/icons/Add';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -12,6 +10,7 @@ import { RouteComponentPropsI } from '../../router/Router';
 import RouterBreadcrumbs from '../../router/RouterBreadcrumbs/RouterBreadcrumbs';
 import ButtonNewPopover from '../../components/Toolbar/ButtonNewPopver/ButtonNewPopver';
 import Table from '../../components/Table/Table';
+import GridList from '../../components/GridList/GridList';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
@@ -49,6 +48,8 @@ const useStyles = makeStyles((theme) => createStyles({
 export default function Main(props: RouteComponentPropsI): JSX.Element {
   const classes = useStyles();
 
+  const { routeComponentProps } = props;
+
   const [viewMode, setViewMode] = useState('list');
 
   const handleChangeViewMode = (
@@ -85,7 +86,13 @@ export default function Main(props: RouteComponentPropsI): JSX.Element {
       </div>
       <RouterBreadcrumbs />
 
-      <Table />
+      {viewMode === 'list' && (
+        <Table routeComponentProps={routeComponentProps} />
+      )}
+
+      {viewMode === 'grid' && (
+        <GridList routeComponentProps={routeComponentProps} />
+      )}
     </div>
   );
 }

@@ -54,6 +54,12 @@ export const routes: RouteI[] = [
       {
         path: '/trashCan', name: 'trashCan', Component: Main, breadcrumbName: '垃圾桶',
       },
+      {
+        path: '/shareAll', name: 'shareAll', Component: Main, breadcrumbName: '全部檔案',
+      },
+      {
+        path: '/shareStar', name: 'shareAll', Component: Main, breadcrumbName: '已加星號',
+      },
     ],
   },
 ];

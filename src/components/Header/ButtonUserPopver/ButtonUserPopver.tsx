@@ -6,32 +6,27 @@ import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import AddIcon from '@material-ui/icons/Add';
-import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   button: {
-    color: '#FFFFFF',
     '&.open': {
-      backgroundColor: '#E57F10',
+      backgroundColor: '#605F5F',
     },
   },
   list: {
-    backgroundColor: '#E57F10',
+    backgroundColor: '#605F5F',
     color: '#FFFFFF',
   },
   listItem: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
-    '& > svg': {
-      marginRight: theme.spacing(),
-    },
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 }));
 
-export default function ButtonNewPopver(): JSX.Element {
+export default function ButtonUserPopver(): JSX.Element {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -49,13 +44,14 @@ export default function ButtonNewPopver(): JSX.Element {
   return (
     <>
       <Button
-        variant="contained"
-        color="secondary"
+        color="inherit"
         className={classNames(classes.button, { open: anchorEl !== null })}
         onClick={handleClickOpenPopover}
       >
-        <AddIcon />
-        新增
+        Horse
+        {anchorEl
+          ? <ArrowDropDownIcon />
+          : <ArrowDropUpIcon />}
       </Button>
       <Popover
         open={Boolean(anchorEl)}
@@ -76,16 +72,14 @@ export default function ButtonNewPopver(): JSX.Element {
             dense
             button
           >
-            <CreateNewFolderIcon />
-            <ListItemText primary="新增資料夾" />
+            <ListItemText primary="隱私權設定" />
           </ListItem>
           <ListItem
             className={classes.listItem}
             dense
             button
           >
-            <CloudUploadIcon />
-            <ListItemText primary="新增檔案" />
+            <ListItemText primary="登出" />
           </ListItem>
         </List>
       </Popover>
