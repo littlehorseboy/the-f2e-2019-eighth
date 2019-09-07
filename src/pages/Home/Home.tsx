@@ -43,6 +43,20 @@ const useStyles = makeStyles((theme) => createStyles({
     backgroundColor: '#373737',
     borderRight: '1px solid #000000',
   },
+  rootList: {
+    '& .MuiListItemText-root > .MuiTypography-root': {
+      fontSize: 12,
+    },
+    '& .MuiListItem-root': {
+      paddingTop: theme.spacing(0.5),
+      paddingBottom: theme.spacing(0.5),
+    },
+  },
+  listItemTitle: {
+    '& .MuiListItemText-root > .MuiTypography-root': {
+      fontSize: 18,
+    },
+  },
   nested: {
     paddingLeft: theme.spacing(4),
     '& .MuiListItemIcon-root': {
@@ -57,6 +71,17 @@ const useStyles = makeStyles((theme) => createStyles({
   },
   sidebarBottom: {
     padding: theme.spacing(2),
+    '& > h6': {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+    '& > p': {
+      fontSize: 10,
+    },
+    '& > .MuiLinearProgress-root': {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
   },
 }));
 
@@ -78,10 +103,12 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
       <div className={classes.mainBodyContainer}>
         <div className={classes.sidebar}>
           <div>
-            <List
-              component="nav"
-            >
-              <ListItem button onClick={(): void => setMyCloudDriveOpen(!myCloudDriveOpen)}>
+            <List component="nav" className={classes.rootList}>
+              <ListItem
+                className={classes.listItemTitle}
+                button
+                onClick={(): void => setMyCloudDriveOpen(!myCloudDriveOpen)}
+              >
                 <ListItemText primary="我的雲端硬碟" />
                 {myCloudDriveOpen ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </ListItem>
@@ -183,75 +210,43 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
               </Collapse>
             </List>
 
-            <List
-              component="nav"
-            >
-              <ListItem button onClick={(): void => setShareCloudDriveOpen(!shareCloudDriveOpen)}>
-                <ListItemText primary="共用雲端硬碟" />
+            <List component="nav" className={classes.rootList}>
+              <ListItem
+                className={classes.listItemTitle}
+                button
+                onClick={(): void => setShareCloudDriveOpen(!shareCloudDriveOpen)}
+              >
+                <ListItemText primary="共用雲端硬碟" className={classes.listItemTitle} />
                 {shareCloudDriveOpen ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
               </ListItem>
               <Collapse in={shareCloudDriveOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <ListItem button className={classes.nested}>
+                  <ListItem
+                    button
+                    className={classes.nested}
+                    component={Link}
+                    to="/all"
+                  >
                     <ListItemIcon>
                       <DynamicFeedIcon />
                     </ListItemIcon>
                     <ListItemText primary="全部檔案" />
                     <ListItemSecondaryAction>
-                      23
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                  <ListItem button className={classes.nested}>
-                    <ListItemIcon>
-                      <StarIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="已加星號" />
-                    <ListItemSecondaryAction>
-                      3
+                      0
                     </ListItemSecondaryAction>
                   </ListItem>
                   <ListItem
                     button
                     className={classes.nested}
-                    onClick={(): void => setFolderOpen(!folderOpen)}
+                    component={Link}
+                    to="/star"
                   >
                     <ListItemIcon>
-                      <FolderIcon />
+                      <StarIcon />
                     </ListItemIcon>
-                    <ListItemText primary="資料夾(3)" />
+                    <ListItemText primary="已加星號" />
                     <ListItemSecondaryAction>
-                      <AddIcon />
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                  <Collapse in={folderOpen} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      <ListItem button className={classes.folderNested}>
-                        <ListItemText primary="Graphic Design" />
-                        <ListItemSecondaryAction>
-                          10
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                      <ListItem button className={classes.folderNested}>
-                        <ListItemText primary="UI Design" />
-                        <ListItemSecondaryAction>
-                          3
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                      <ListItem button className={classes.folderNested}>
-                        <ListItemText primary="Illustration" />
-                        <ListItemSecondaryAction>
-                          4
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    </List>
-                  </Collapse>
-                  <ListItem button className={classes.nested}>
-                    <ListItemIcon>
-                      <DeleteForeverIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="垃圾桶" />
-                    <ListItemSecondaryAction>
-                      3
+                      0
                     </ListItemSecondaryAction>
                   </ListItem>
                 </List>
@@ -267,7 +262,7 @@ export default function Home(props: RouteComponentPropsI): JSX.Element {
             <Typography>剩餘使用量：99.4G (共120G)</Typography>
             <BorderLinearProgress
               variant="determinate"
-              value={(120 / 20.6) * 100}
+              value={(20.6 / 120) * 100}
             />
           </div>
         </div>

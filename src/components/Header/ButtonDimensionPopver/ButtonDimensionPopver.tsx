@@ -17,12 +17,18 @@ const useStyles = makeStyles((theme) => createStyles({
       backgroundColor: '#605F5F',
     },
   },
+  list: {
+    backgroundColor: '#605F5F',
+    color: '#FFFFFF',
+  },
   listItem: {
     paddingTop: 0,
     paddingBottom: 0,
   },
   checkbox: {
-    padding: theme.spacing(0.5, 0.5, 0.5, 3),
+    color: '#FFFFFF',
+    marginLeft: theme.spacing(3),
+    padding: theme.spacing(0.5),
   },
 }));
 
@@ -84,7 +90,7 @@ export default function ButtonDimensionPopver(): JSX.Element {
           horizontal: 'left',
         }}
       >
-        <List>
+        <List className={classes.list}>
           {[
             { label: '大於300*400像素', value: '大於300*400像素' },
             { label: '大於640*480像素', value: '大於640*480像素' },

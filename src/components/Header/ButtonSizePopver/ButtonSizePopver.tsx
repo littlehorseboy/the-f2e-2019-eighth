@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
@@ -17,12 +17,27 @@ const useStyles = makeStyles((theme) => createStyles({
       backgroundColor: '#605F5F',
     },
   },
+  list: {
+    backgroundColor: '#605F5F',
+    color: '#FFFFFF',
+  },
   listItem: {
     paddingTop: 0,
     paddingBottom: 0,
+    '& > div > div:not(:first-child), & > div > span': {
+      marginLeft: theme.spacing(),
+    },
   },
-  checkbox: {
-    padding: theme.spacing(0.5, 0.5, 0.5, 3),
+  textField: {
+    width: 60,
+  },
+  select: {
+    width: 60,
+    '& > div > .MuiSelect-root': {
+      paddingTop: 5.5,
+      paddingBottom: 5.5,
+      backgroundColor: '#FFFFFF',
+    },
   },
 }));
 
@@ -66,18 +81,37 @@ export default function ButtonSizePopver(): JSX.Element {
           horizontal: 'left',
         }}
       >
-        <List>
+        <List className={classes.list}>
           <ListItem
             className={classes.listItem}
             dense
           >
             <div>
-              <Checkbox
-                className={classes.checkbox}
-                edge="end"
-                tabIndex={-1}
-                disableRipple
+              <TextField
+                className={classes.textField}
               />
+              <TextField
+                select
+                className={classes.select}
+                value="KB"
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                <option value="KB">KB</option>
+              </TextField>
+              <Typography component="span">至</Typography>
+              <TextField
+                className={classes.textField}
+              />
+              <TextField
+                select
+                className={classes.select}
+                value="KB"
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                <option value="KB">KB</option>
+              </TextField>
             </div>
           </ListItem>
         </List>

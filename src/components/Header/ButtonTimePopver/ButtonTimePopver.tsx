@@ -17,12 +17,18 @@ const useStyles = makeStyles((theme) => createStyles({
       backgroundColor: '#605F5F',
     },
   },
+  list: {
+    backgroundColor: '#605F5F',
+    color: '#FFFFFF',
+  },
   listItem: {
     paddingTop: 0,
     paddingBottom: 0,
   },
   checkbox: {
-    padding: theme.spacing(0.5, 0.5, 0.5, 3),
+    color: '#FFFFFF',
+    marginLeft: theme.spacing(3),
+    padding: theme.spacing(0.5),
   },
 }));
 
@@ -84,7 +90,7 @@ export default function ButtonTimePopver(): JSX.Element {
           horizontal: 'left',
         }}
       >
-        <List>
+        <List className={classes.list}>
           {[
             { label: '今日', value: '今日' },
             { label: '昨日', value: '昨日' },
