@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => createStyles({
   root: {
     marginTop: theme.spacing(0.5),
   },
+  breadcrumbs: {
+    '& > ol > li > *': {
+      fontSize: '0.9rem',
+    },
+  },
 }));
 
 function RouterBreadcrumbs(props: RouteComponentProps): JSX.Element {
@@ -49,7 +54,7 @@ function RouterBreadcrumbs(props: RouteComponentProps): JSX.Element {
   return (
     <div className={classes.root}>
       <Container maxWidth={false}>
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs aria-label="breadcrumb" className={classes.breadcrumbs}>
           {pathNameBreadcrumbs
             .filter((route): boolean => route !== undefined)
             .map((route, index): JSX.Element => (

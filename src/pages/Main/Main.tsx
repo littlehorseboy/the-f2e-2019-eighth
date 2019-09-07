@@ -14,7 +14,36 @@ import RouterBreadcrumbs from '../../router/RouterBreadcrumbs/RouterBreadcrumbs'
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
   root: {
+    flexGrow: 1,
     padding: theme.spacing(2),
+  },
+  toolbarContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  toolbarLeft: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  toolbarRight: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  title: {
+    paddingLeft: theme.spacing(),
+    paddingRight: theme.spacing(),
+    fontWeight: 'bold',
+  },
+  toggleButtonGroup: {
+    marginRight: theme.spacing(2),
+    '& .MuiToggleButton-sizeSmall': {
+      height: 30,
+      padding: theme.spacing(0, 0.25),
+    },
+  },
+  button: {
+    color: '#FFFFFF',
   },
 }));
 
@@ -33,21 +62,31 @@ export default function Main(props: RouteComponentPropsI): JSX.Element {
 
   return (
     <div className={classes.root}>
-      <div>
-        <KeyboardBackspaceIcon />
-        <Typography variant="h6">我的雲端硬碟</Typography>
-        <ToggleButtonGroup value={viewMode} exclusive onChange={handleChangeViewMode}>
-          <ToggleButton value="list">
-            <ListIcon />
-          </ToggleButton>
-          <ToggleButton value="grid">
-            <DashboardIcon />
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <Button variant="contained" color="secondary">
-          <AddIcon />
-          新增
-        </Button>
+      <div className={classes.toolbarContainer}>
+        <div className={classes.toolbarLeft}>
+          <KeyboardBackspaceIcon />
+          <Typography variant="h6" className={classes.title}>我的雲端硬碟</Typography>
+        </div>
+        <div className={classes.toolbarRight}>
+          <ToggleButtonGroup
+            className={classes.toggleButtonGroup}
+            value={viewMode}
+            size="small"
+            exclusive
+            onChange={handleChangeViewMode}
+          >
+            <ToggleButton value="list">
+              <ListIcon />
+            </ToggleButton>
+            <ToggleButton value="grid">
+              <DashboardIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <Button variant="contained" color="secondary" className={classes.button}>
+            <AddIcon />
+            新增
+          </Button>
+        </div>
       </div>
       <RouterBreadcrumbs />
     </div>
