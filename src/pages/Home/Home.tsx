@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -15,8 +16,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 import CloudIcon from '@material-ui/icons/Cloud';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -26,10 +25,8 @@ import StarIcon from '@material-ui/icons/Star';
 import AddIcon from '@material-ui/icons/Add';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import ListIcon from '@material-ui/icons/List';
-import DashboardIcon from '@material-ui/icons/Dashboard';
 import DynamicFeedIcon from '../../components/icons/DynamicFeed/DynamicFeed';
+import { RouteComponentPropsI, RouteWithSubRoutes } from '../../router/Router';
 
 const BorderLinearProgress = withStyles({
   root: {
@@ -122,13 +119,12 @@ const useStyles = makeStyles((theme) => createStyles({
   sidebarBottom: {
     padding: theme.spacing(2),
   },
-  main: {
-    padding: theme.spacing(2),
-  },
 }));
 
-export default function Login(): JSX.Element {
+export default function Home(props: RouteComponentPropsI): JSX.Element {
   const classes = useStyles();
+
+  const { routes } = props;
 
   const [anchorTimeEl, setAnchorTimeEl] = useState<HTMLButtonElement | null>(null);
 
@@ -163,14 +159,6 @@ export default function Login(): JSX.Element {
   const [folderOpen, setFolderOpen] = useState(true);
 
   const [shareCloudDriveOpen, setShareCloudDriveOpen] = useState(false);
-
-  const [viewMode, setViewMode] = useState('list');
-
-  const handleChangeViewMode = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>, mode: string,
-  ): void => {
-    setViewMode(mode);
-  };
 
   return (
     <>
@@ -267,7 +255,12 @@ export default function Login(): JSX.Element {
               </ListItem>
               <Collapse in={myCloudDriveOpen} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <ListItem button className={classes.nested}>
+                  <ListItem
+                    button
+                    className={classes.nested}
+                    component={Link}
+                    to="/all"
+                  >
                     <ListItemIcon>
                       <DynamicFeedIcon />
                     </ListItemIcon>
@@ -276,7 +269,12 @@ export default function Login(): JSX.Element {
                       23
                     </ListItemSecondaryAction>
                   </ListItem>
-                  <ListItem button className={classes.nested}>
+                  <ListItem
+                    button
+                    className={classes.nested}
+                    component={Link}
+                    to="/star"
+                  >
                     <ListItemIcon>
                       <StarIcon />
                     </ListItemIcon>
@@ -300,19 +298,34 @@ export default function Login(): JSX.Element {
                   </ListItem>
                   <Collapse in={folderOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      <ListItem button className={classes.folderNested}>
+                      <ListItem
+                        button
+                        className={classes.folderNested}
+                        component={Link}
+                        to="/folder/graphicDesign"
+                      >
                         <ListItemText primary="Graphic Design" />
                         <ListItemSecondaryAction>
                           10
                         </ListItemSecondaryAction>
                       </ListItem>
-                      <ListItem button className={classes.folderNested}>
+                      <ListItem
+                        button
+                        className={classes.folderNested}
+                        component={Link}
+                        to="/folder/uidesign"
+                      >
                         <ListItemText primary="UI Design" />
                         <ListItemSecondaryAction>
                           3
                         </ListItemSecondaryAction>
                       </ListItem>
-                      <ListItem button className={classes.folderNested}>
+                      <ListItem
+                        button
+                        className={classes.folderNested}
+                        component={Link}
+                        to="/folder/illustration"
+                      >
                         <ListItemText primary="Illustration" />
                         <ListItemSecondaryAction>
                           4
@@ -320,7 +333,12 @@ export default function Login(): JSX.Element {
                       </ListItem>
                     </List>
                   </Collapse>
-                  <ListItem button className={classes.nested}>
+                  <ListItem
+                    button
+                    className={classes.nested}
+                    component={Link}
+                    to="/trashCan"
+                  >
                     <ListItemIcon>
                       <DeleteForeverIcon />
                     </ListItemIcon>
@@ -421,24 +439,12 @@ export default function Login(): JSX.Element {
             />
           </div>
         </div>
-        <div className={classes.main}>
-          <div>
-            <KeyboardBackspaceIcon />
-            <Typography variant="h6">我的雲端硬碟</Typography>
-            <ToggleButtonGroup value={viewMode} exclusive onChange={handleChangeViewMode}>
-              <ToggleButton value="list">
-                <ListIcon />
-              </ToggleButton>
-              <ToggleButton value="grid">
-                <DashboardIcon />
-              </ToggleButton>
-            </ToggleButtonGroup>
-            <Button variant="contained" color="secondary">
-              <AddIcon />
-              新增
-            </Button>
-          </div>
-        </div>
+
+        {routes && routes.map((route): JSX.Element => (
+          <React.Fragment key={route.path}>
+            <RouteWithSubRoutes route={route} />
+          </React.Fragment>
+        ))}
       </div>
     </>
   );
