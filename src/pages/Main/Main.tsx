@@ -10,6 +10,7 @@ import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { RouteComponentPropsI } from '../../router/Router';
 import RouterBreadcrumbs from '../../router/RouterBreadcrumbs/RouterBreadcrumbs';
+import Table from '../../components/Table/Table';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
@@ -89,6 +90,8 @@ export default function Main(props: RouteComponentPropsI): JSX.Element {
         </div>
       </div>
       <RouterBreadcrumbs />
+
+      <Table />
     </div>
   );
 }
