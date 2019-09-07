@@ -6,7 +6,7 @@ import Home from '../pages/Home/Home';
 import Main from '../pages/Main/Main';
 
 interface RouteWithSubRoutesPropsI {
-  route: RoutesI;
+  route: RouteI;
 }
 
 export function RouteWithSubRoutes(props: RouteWithSubRoutesPropsI): JSX.Element {
@@ -24,26 +24,36 @@ export function RouteWithSubRoutes(props: RouteWithSubRoutesPropsI): JSX.Element
 
 export interface RouteComponentPropsI {
   routeComponentProps: RouteComponentProps;
-  routes?: RoutesI[];
+  routes?: RouteI[];
 }
 
-export interface RoutesI {
+export interface RouteI {
   path: string;
   name: string;
   Component: (props: RouteComponentPropsI) => JSX.Element;
-  routes?: RoutesI[];
+  breadcrumbName: string;
+  routes?: RouteI[];
 }
 
-const routes: RoutesI[] = [
+export const routes: RouteI[] = [
   {
     path: '/',
     name: 'home',
     Component: Home,
+    breadcrumbName: '我的雲端硬碟',
     routes: [
-      { path: '/all', name: 'all', Component: Main },
-      { path: '/star', name: 'star', Component: Main },
-      { path: '/folder/:folder', name: 'folder', Component: Main },
-      { path: '/trashCan', name: 'trashCan', Component: Main },
+      {
+        path: '/all', name: 'all', Component: Main, breadcrumbName: '全部檔案',
+      },
+      {
+        path: '/star', name: 'star', Component: Main, breadcrumbName: '已加星號',
+      },
+      {
+        path: '/folder/:folder', name: 'folder', Component: Main, breadcrumbName: '資料夾',
+      },
+      {
+        path: '/trashCan', name: 'trashCan', Component: Main, breadcrumbName: '垃圾桶',
+      },
     ],
   },
 ];

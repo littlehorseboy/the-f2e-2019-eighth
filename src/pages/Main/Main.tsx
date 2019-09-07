@@ -9,6 +9,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { RouteComponentPropsI } from '../../router/Router';
+import RouterBreadcrumbs from '../../router/RouterBreadcrumbs/RouterBreadcrumbs';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useStyles = makeStyles((theme) => createStyles({
@@ -48,6 +49,7 @@ export default function Main(props: RouteComponentPropsI): JSX.Element {
           新增
         </Button>
       </div>
+      <RouterBreadcrumbs />
     </div>
   );
 }
